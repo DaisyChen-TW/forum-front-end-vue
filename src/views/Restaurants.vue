@@ -14,12 +14,21 @@
     </div>
 
     <!-- 分頁標籤 RestaurantPagination -->
+    <RestaurantsPagination 
+      v-if="totalPage.length > 1"
+      :current-page="currentPage"
+      :total-page="totalPage"
+      :category-id="categoryId"
+      :previous-page="previousPage"
+      :next-page="nextPage"
+    />
   </div>
 </template>
 <script>
 import NavTabs from "../components/NavTabs.vue";
 import RestaurantCard from "../components/RestaurantCard.vue"
 import RestaurantsNavPills from "../components/RestaurantsNavPills.vue"
+import RestaurantsPagination from "../components/RestaurantsPagination.vue"
 
 const dummyData = {
     "restaurants": [
@@ -300,7 +309,8 @@ export default {
   components: {
     NavTabs,
     RestaurantCard,
-    RestaurantsNavPills
+    RestaurantsNavPills,
+    RestaurantsPagination
   },
   data () {
     return {
