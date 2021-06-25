@@ -6,7 +6,7 @@
     </h1>
     <hr>
     <div class="row text-center">
-      <UserCard v-for="user in users" :key="user.id" :user="user" />
+      <UserCard v-for="user in users" :key="user.id" :initial-user="user" />
     </div>
   </div>
 </template>

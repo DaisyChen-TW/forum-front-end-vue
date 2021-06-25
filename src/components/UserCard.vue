@@ -31,14 +31,14 @@
 <script>
 export default {
   props: {
-    user: {
+    initialUser: {
       type: Object,
       required: true
     }
   },
   data () {
     return {
-      users: this.users
+      user: this.initialUser
     }
   },
   methods: {
