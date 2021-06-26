@@ -2,7 +2,8 @@
   <main role="main">
      <div class="album py-5 bg-light">
        <div class="container">
-         <UserProfileCard />
+         <UserProfileCard :userProfile="userProfile" :isFollowed="isFollowed" @follow="follow"
+      @unfollow="unfollow" />
 
 <div class="row">
   <div class="col-md-4">
@@ -1212,7 +1213,8 @@ export default {
   },
   data() {
     return {
-      user: {}
+      userProfile: {},
+      isFollowed: true
     }
   },
   created() {
@@ -1220,8 +1222,15 @@ export default {
   },
   methods: {
     fetchUser () {
-      const {user} = dummyData
-      this.user = user
+      const {profile,isFollowed} = dummyData
+      this.userProfile = profile
+      this.isFollowed = isFollowed
+    },
+    follow() {
+      this.isFollowed = true
+    },
+    unfollow() {
+      this.isFollowed = false
     }
   }
 }
