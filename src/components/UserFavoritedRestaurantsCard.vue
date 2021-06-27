@@ -1,31 +1,25 @@
 <template>
   <div class="card">
-    <div class="card-header"><strong>3</strong> 收藏的餐廳</div>
+    <div class="card-header"><strong>{{userProfile.FavoritedRestaurants.length}}</strong> 收藏的餐廳</div>
     <div class="card-body">
-      <a href="/restaurants/3">
+      <router-link v-for="FavoritedRestaurant in userProfile.FavoritedRestaurants" :key="FavoritedRestaurant.id" :to="{ name:'restaurantShow', params: { id: FavoritedRestaurant.id }}" >
         <img
-          src="https://loremflickr.com/320/240/restaurant,food/?random=79.91299846538044"
+          :src="FavoritedRestaurant.image"
           width="60"
           height="60"
           class="avatar"
         />
-      </a>
-      <a href="/restaurants/13">
-        <img
-          src="https://loremflickr.com/320/240/restaurant,food/?random=75.12026971384928"
-          width="60"
-          height="60"
-          class="avatar"
-        />
-      </a>
-      <a href="/restaurants/6">
-        <img
-          src="https://loremflickr.com/320/240/restaurant,food/?random=84.47709833016874"
-          width="60"
-          height="60"
-          class="avatar"
-        />
-      </a>
+      </router-link>
     </div>
   </div>
 </template>
+<script>
+export default {
+  props: {
+    userProfile: {
+      type: Object,
+      require: true
+    }  
+  }
+}
+</script>

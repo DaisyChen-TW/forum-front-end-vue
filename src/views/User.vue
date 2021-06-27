@@ -7,14 +7,14 @@
 
 <div class="row">
   <div class="col-md-4">
-    <UserFollowingsCard />
+    <UserFollowingsCard :userProfile="userProfile" />
     <br>
-    <UserFollowersCard />
+    <UserFollowersCard :userProfile="userProfile" />
   </div>
   <div class="col-md-8">
-    <UserCommentsCard />
+    <UserCommentsCard :userProfile="userProfile"/>
     <br>
-    <UserFavoritedRestaurantsCard />
+    <UserFavoritedRestaurantsCard :userProfile="userProfile"/>
     
   </div>
 </div>

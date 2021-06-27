@@ -1,24 +1,25 @@
 <template>
   <div class="card">
-    <div class="card-header"><strong>2</strong> followings (追蹤者)</div>
+    <div class="card-header"><strong>{{userProfile.Followings.length}}</strong> followings (追蹤者)</div>
     <div class="card-body">
-      <a href="/users/1">
+      <router-link v-for="Following in userProfile.Followings" :key="Following.id" :to="{ name: 'user', params: { id: Following.id }}">
         <img
-          src="https://i.imgur.com/eVfTIsY.jpg"
+          :src="Following.image"
           width="60"
           height="60"
           class="avatar"
         />
-      </a>
-      <a href="/users/11">
-        <img
-          src="https://i.imgur.com/pIHFJtM.png"
-          width="60"
-          height="60"
-          class="avatar"
-          cursorshover="true"
-        />
-      </a>
+      </router-link>
     </div>
   </div>
 </template>
+<script>
+export default {
+  props: {
+    userProfile: {
+      type: Object,
+      require: true
+    }  
+  }
+}
+</script>
