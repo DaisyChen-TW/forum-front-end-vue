@@ -6,9 +6,9 @@
       <blockquote class="blockquote mb-0">
         <button v-if="currentUser.isAdmin" type="button" class="btn btn-danger float-right" @click.stop.prevent="handleDeleteButtonClick(comment.id)">Delete</button>
         <h3>
-          <a href="#">
+          <router-link :to="{ name: 'user', params: { id: comment.User.id } }">
             {{ comment.User.name }}
-          </a>
+          </router-link>
         </h3>
         <p>{{ comment.text }}</p>
         <footer class="blockquote-footer">
