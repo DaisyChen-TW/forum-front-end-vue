@@ -8,7 +8,7 @@
           <a href="#">
             <img
               class="card-img"
-              :src="restaurant.image"
+              :src="restaurant.image | emptyImage"
             >
           </a>
         </div>
@@ -48,7 +48,9 @@
     </div>
 </template>
 <script>
+import { emptyImageFilter } from "../utils/mixins";
   export default {
+    mixins: [emptyImageFilter],
     props: {
       initialRestaurant: {
         type: Object,

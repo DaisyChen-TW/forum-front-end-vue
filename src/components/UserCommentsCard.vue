@@ -4,7 +4,7 @@
     <div class="card-body">
       <router-link v-for="Comment in userProfile.Comments" :key="Comment.id" :to="{ name:'restaurantShow', params: { id: Comment.id } }" >
         <img
-          :src="Comment.Restaurant.image"
+          :src="Comment.Restaurant.image | emptyImage"
           width="60"
           height="60"
           class="avatar"
@@ -14,7 +14,9 @@
   </div>
 </template>
 <script>
+import { emptyImageFilter } from "../utils/mixins"
 export default {
+  mixins: [emptyImageFilter],
   props: {
     userProfile: {
       type: Object,

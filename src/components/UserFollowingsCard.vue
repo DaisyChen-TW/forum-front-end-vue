@@ -4,7 +4,7 @@
     <div class="card-body">
       <router-link v-for="Following in userProfile.Followings" :key="Following.id" :to="{ name: 'user', params: { id: Following.id }}">
         <img
-          :src="Following.image"
+          :src="Following.image | emptyImage"
           width="60"
           height="60"
           class="avatar"
@@ -14,7 +14,9 @@
   </div>
 </template>
 <script>
+import { emptyImageFilter } from "../utils/mixins"
 export default {
+  mixins: [emptyImageFilter],
   props: {
     userProfile: {
       type: Object,
