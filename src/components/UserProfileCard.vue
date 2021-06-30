@@ -17,7 +17,7 @@
           <li><strong>{{userProfile.Followings.length}}</strong> followers (追隨者)</li>
         </ul>
         <p>
-            <a v-if="userProfile.isAdmin" href="/users/1/edit"><button type="submit" class="btn btn-primary">edit</button></a>
+            <router-link v-if="userProfile.isAdmin" to="/user/:id/edit"><button type="submit" class="btn btn-primary">edit</button></router-link>
             <template v-else>
             <button v-if="isFollowed"  type="submit" @click.stop.prevent="deleteFollowed" class="btn btn-danger" cursorshover="true">取消追蹤</button>              
             <button v-else @click.stop.prevent="addFollowed" type="submit" class="btn btn-primary" cursorshover="true">追蹤</button>
