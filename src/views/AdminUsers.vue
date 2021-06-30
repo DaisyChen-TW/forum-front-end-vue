@@ -31,19 +31,12 @@
           <td>{{user.email}}</td>
           <td>{{user.isAdmin ? 'admin': 'user'  }}</td>
           <td>
-            <button v-show="user.isAdmin"
+            <button v-if="currentUser.id !== user.id"
               type="button"
               class="btn btn-link"
-              @click.stop.prevent="toggleIsUser(user.id)"
+              @click.stop.prevent="toggleUserRole(user.id)"
             >
-              set as user
-            </button>
-            <button v-show="!user.isAdmin"
-              type="button"
-              class="btn btn-link"
-              @click.stop.prevent="toggleIsAdmin(user.id)"
-            >
-              set as admin
+              {{user.isAdmin ? 'set as user' : 'set as admin'}}
             </button>
           </td>
         </tr>
@@ -142,31 +135,20 @@ export default {
   methods: {
     fetchUsers () {
       this.users = dummyData.users
+      this.currentUser = dummyData.users[0]
     },
-    toggleIsUser (userId) {
+    toggleUserRole (userId) {
       this.users = this.users.map(user => {
         if (user.id === userId) {
           return {
             ...user,
-            isAdmin: false
+            isAdmin: !user.isAdmin
           }
         }
         return user
         
       })
-    },
-    toggleIsAdmin (userId) {
-      this.users = this.users.map(user => {
-        if (user.id === userId) {
-          return {
-            ...user,
-            isAdmin: true
-          }
-        }
-        return user
-        
-      })
-    },
+    }
   }
 }
 </script>
