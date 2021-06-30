@@ -131,16 +131,24 @@ const dummyData = {
   ],
 };
 export default {
+  props: {
+    initialRestaurant: {
+      type: Object,
+      default: () => ({
+        name: '',
+        categoryId: '',
+        tel: '',
+        address: '',
+        description: '',
+        image: '',
+        openingHours: '',
+      })
+    }
+  },  
   data() {
     return {
       restaurant: {
-        name: "",
-        categoryId: "",
-        tel: "",
-        address: "",
-        description: "",
-        image: "",
-        openingHours: "",
+        ...this.initialRestaurant
       },
       categories: [],
     };
