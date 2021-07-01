@@ -64,7 +64,7 @@ export default {
     };
   },
   methods: {
-    async handleSubmit(e) {
+    async handleSubmit() {
       try {
         if (!this.email || !this.password) {
           Toast.fire({
