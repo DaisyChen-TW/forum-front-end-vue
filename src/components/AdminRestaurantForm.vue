@@ -98,7 +98,7 @@
       />
     </div>
 
-    <button type="submit" class="btn btn-primary">送出</button>
+    <button type="submit" :disabled="isProcessing" class="btn btn-primary">{{ isProcessing ? "處理中..." : "送出" }}</button>
   </form>
 </template>
 <script>
@@ -118,6 +118,10 @@ export default {
         image: '',
         openingHours: '',
       })
+    },
+    isProcessing: {
+      type: Boolean,
+      default: false
     }
   },  
   data() {
@@ -134,11 +138,9 @@ export default {
   },
   methods: {
     async fetchCategories() {
-      try{
+      try {
         const { data } = await adminAPI.categories.get()
-        if (data.status !== 'success') {
-          throw new Error(data.message)
-        }
+        console.log('data', data)
         this.categories = data.categories;
         this.isLoading = false
       } catch (error) {
@@ -162,6 +164,19 @@ export default {
       }
     },
     handleSubmit (e) {
+      if (!this.restaurant.name) {
+        Toast.fire({
+          icon: 'warning',
+          title: '請填寫餐廳名稱'
+        })
+        return
+      } else if (!this.restaurant.categoryId) {
+        Toast.fire({
+          icon: 'warning',
+          title: '請選擇餐廳類別'
+        })
+        return
+      }
       const form = e.target  // <form></form>
       const formData = new FormData(form)
       this.$emit('after-submit', formData)
