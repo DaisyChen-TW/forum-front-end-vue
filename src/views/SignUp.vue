@@ -62,8 +62,8 @@
         />
       </div>
 
-      <button class="btn btn-lg btn-primary btn-block mb-3" type="submit">
-        Submit
+      <button class="btn btn-lg btn-primary btn-block mb-3" type="submit" :disabled="isProcessing">
+        {{ isProcessing ? 'Processing' : 'Submit' }}
       </button>
 
       <div class="text-center mb-3">
@@ -77,26 +77,62 @@
   </div>
 </template>
 <script>
+import authorizationAPI from "./../apis/authorization";
+import { Toast } from "./../utils/helpers";
+
 export default {
   data() {
     return {
       name: '',
       email: '',
       password: '',
-      passwordCheck: ''
+      passwordCheck: '',
+      isProcessing: false,
+
     };
   },
   methods: {
-    handleSubmit() {
-      const data = JSON.stringify({
+    async handleSubmit() {
+      try{
+        if (!this.email || !this.password || !this.password || !this.passwordCheck) {
+          Toast.fire({
+            icon: "warning",
+            title: "請填寫完整的資料",
+          });
+          return;
+        }
+        if (this.password !== this.passwordCheck) {
+          this.password = "";
+          this.passwordCheck = "";
+          Toast.fire({
+            icon: "warning",
+            title: "兩次密碼不一樣，請確認",
+          });
+          return;
+        }
+        this.isProcessing = true;
+        const formData = {
         name: this.name,
         email: this.email,
         password: this.password,
         passwordCheck: this.passwordCheck
-      });
+        }
+        const {data} = await authorizationAPI.signUp({formData})
 
-      // TODO: 向後端驗證使用者登入資訊是否合法
-      console.log("data", data);
+        if (data.status !== "success") {
+        throw new Error(data.message);
+        }
+
+        this.$router.push("/signIn");
+      } catch (error) {
+        this.password = "";
+        this.isProcessing = false;
+
+        Toast.fire({
+          icon: "warning",
+          title: "請確認您輸入了正確的帳號密碼",
+        });
+      }
     },
   },
 };

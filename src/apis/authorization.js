@@ -8,5 +8,9 @@ export default {
       email,
       password
     })
+  },
+  signUp({ formData }) {
+    // 這裡 return 的會是一個 Promise
+    return apiHelper.post('/signup', formData)
   }
 }
