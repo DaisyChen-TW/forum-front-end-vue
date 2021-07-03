@@ -127,19 +127,29 @@ export default {
   data() {
     return {
       restaurant: {
+        //有時間差問題可使用watch來監控
         ...this.initialRestaurant
       },
       categories: [],
       isLoading: true
     };
   },
+  watch: {
+    //監控父層傳過來的資料是否更新，如有更新，以新資料為準
+    initialRestaurant (newValue) {
+      this.restaurant = {
+        ...this.restaurant,
+        ...newValue
+      }
+    }
+  },  
   created() {
     this.fetchCategories();
   },
   methods: {
     async fetchCategories() {
       try {
-        const { data } = await adminAPI.categories.get()
+        const { data } = await adminAPI.categories.get({})
         console.log('data', data)
         this.categories = data.categories;
         this.isLoading = false
