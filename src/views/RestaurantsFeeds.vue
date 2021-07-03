@@ -1,4 +1,5 @@
 // ./src/views/RestaurantsFeeds.vue
+//test2
 <template>
   <div class="container py-5">
     <NavTabs />
