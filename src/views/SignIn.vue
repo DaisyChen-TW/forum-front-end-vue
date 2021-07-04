@@ -91,6 +91,8 @@ export default {
 
         // 將 token 存放在 localStorage 內
         localStorage.setItem("token", data.token);
+        //呼叫setCurrentUser來做登入的動作
+        this.$store.commit('setCurrentUser', data.user)
 
         // 成功登入後轉址到餐聽首頁
         this.$router.push("/restaurants");
